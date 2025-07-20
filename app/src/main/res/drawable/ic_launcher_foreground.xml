@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:translateX="10.8"
+        android:translateY="10.8">
+        <!-- Check mark circle -->
+        <path
+            android:fillColor="@color/white"
+            android:pathData="M54,18C33.0,18 16,35.0 16,56s17.0,38 38,38s38,-17.0 38,-38S75.0,18 54,18zM45,71L29,55l5.5,-5.5L45,60l25.5,-25.5L76,40L45,71z" />
+        <!-- Calendar grid -->
+        <path
+            android:fillColor="@color/accent_color"
+            android:pathData="M25,25h8v8h-8zM37,25h8v8h-8zM49,25h8v8h-8zM61,25h8v8h-8zM73,25h8v8h-8z"
+            android:fillAlpha="0.3" />
+        <path
+            android:fillColor="@color/accent_color"
+            android:pathData="M25,37h8v8h-8zM37,37h8v8h-8zM49,37h8v8h-8zM61,37h8v8h-8zM73,37h8v8h-8z"
+            android:fillAlpha="0.3" />
+    </group>
+</vector>

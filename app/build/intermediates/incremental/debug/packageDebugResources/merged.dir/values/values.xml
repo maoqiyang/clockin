@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="accent_color">#FFFF9800</color>
+    <color name="background_light">#FFF5F5F5</color>
+    <color name="black">#FF000000</color>
+    <color name="calendar_complete">#FF4CAF50</color>
+    <color name="calendar_incomplete">#FFE0E0E0</color>
+    <color name="calendar_partial">#FFFFC107</color>
+    <color name="calendar_today">#FF2196F3</color>
+    <color name="card_background">#FFFFFFFF</color>
+    <color name="divider_color">#FFE0E0E0</color>
+    <color name="primary_color">#FF4CAF50</color>
+    <color name="primary_dark">#FF388E3C</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="text_hint">#FFBDBDBD</color>
+    <color name="text_primary">#FF212121</color>
+    <color name="text_secondary">#FF757575</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="checkbox_padding">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <string name="action_about">关于应用</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_habit">添加项目</string>
+    <string name="app_name">习惯打卡</string>
+    <string name="calendar_title">打卡记录</string>
+    <string name="cancel">取消</string>
+    <string name="completed_days">完成天数: %d</string>
+    <string name="completion_rate">完成率: %d%%</string>
+    <string name="day_details_title">打卡详情</string>
+    <string name="delete">删除</string>
+    <string name="delete_habit">删除项目</string>
+    <string name="edit">编辑</string>
+    <string name="edit_habits">编辑打卡项目</string>
+    <string name="favorite">收藏</string>
+    <string name="habit_completed">✓ 已完成</string>
+    <string name="habit_dress">是否有良好穿搭</string>
+    <string name="habit_exercise">是否锻炼</string>
+    <string name="habit_meal">是否按时吃饭</string>
+    <string name="habit_name_hint">输入习惯名称</string>
+    <string name="habit_not_completed">✗ 未完成</string>
+    <string name="habit_sleep">是否早睡</string>
+    <string name="loading_image">加载中...</string>
+    <string name="max_habits_reached">最多只能添加8个习惯</string>
+    <string name="menu_calendar">日历记录</string>
+    <string name="menu_home">今日打卡</string>
+    <string name="menu_motivation">激励页面</string>
+    <string name="menu_settings">自定义设置</string>
+    <string name="monthly_stats">本月统计</string>
+    <string name="motivation_title">每日激励</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_subtitle">坚持每一天</string>
+    <string name="nav_header_title">习惯打卡</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="network_error">网络连接失败，显示缓存内容</string>
+    <string name="ok">确定</string>
+    <string name="reminder_time">提醒时间</string>
+    <string name="retry">重试</string>
+    <string name="save">保存</string>
+    <string name="save_success">保存成功</string>
+    <string name="settings_title">自定义设置</string>
+    <string name="swipe_up_hint">向上滑动查看详情</string>
+    <string name="today_date">今天是 %s</string>
+    <string name="total_days">总天数: %d</string>
+    <string name="unfavorite">取消收藏</string>
+    <string name="weekly_stats">本周统计</string>
+    <style name="HabitCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="android:background">@color/card_background</item>
+    </style>
+    <style name="HabitCheckBox">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:padding">12dp</item>
+    </style>
+    <style name="SubtitleText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    <style name="Theme.HabitTracker" parent="Theme.Material3.DayNight">
+        
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        
+        <item name="colorSecondary">@color/accent_color</item>
+        <item name="colorSecondaryVariant">@color/accent_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        
+        <item name="android:statusBarColor" ns1:targetApi="l">?attr/colorPrimaryVariant</item>
+        
+        <item name="android:windowBackground">@color/background_light</item>
+    </style>
+    <style name="Theme.HabitTracker.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.HabitTracker.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.HabitTracker.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="Theme.HabitTracker.Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="TitleText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
