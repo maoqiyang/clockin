@@ -1,6 +1,7 @@
 package com.habittracker.app.ui.settings
 
 import android.app.TimePickerDialog
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +17,17 @@ import com.google.android.material.textfield.TextInputEditText
 import com.habittracker.app.R
 import com.habittracker.app.data.model.Habit
 import com.habittracker.app.databinding.FragmentSettingsBinding
+import com.habittracker.app.notification.NotificationPermissionHelper
 import java.util.*
 
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
-    
+
     private lateinit var settingsViewModel: SettingsViewModel
     private lateinit var habitEditAdapter: HabitEditAdapter
+    private lateinit var notificationPermissionHelper: NotificationPermissionHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +35,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
+        notificationPermissionHelper = NotificationPermissionHelper(requireActivity())
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -53,7 +57,24 @@ class SettingsFragment : Fragment() {
         }
         
         binding.switchReminder.setOnCheckedChangeListener { _, isChecked ->
-            settingsViewModel.updateReminderEnabled(isChecked)
+            if (isChecked) {
+                // Check permissions before enabling reminders
+                if (notificationPermissionHelper.hasNotificationPermission()) {
+                    if (notificationPermissionHelper.hasExactAlarmPermission()) {
+                        settingsViewModel.updateReminderEnabled(isChecked)
+                    } else {
+                        // Reset switch and request exact alarm permission
+                        binding.switchReminder.isChecked = false
+                        notificationPermissionHelper.requestExactAlarmPermission()
+                    }
+                } else {
+                    // Reset switch and request notification permission
+                    binding.switchReminder.isChecked = false
+                    notificationPermissionHelper.requestNotificationPermission()
+                }
+            } else {
+                settingsViewModel.updateReminderEnabled(isChecked)
+            }
         }
     }
 
@@ -193,6 +214,33 @@ class SettingsFragment : Fragment() {
             minute,
             true
         ).show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        notificationPermissionHelper.onRequestPermissionsResult(
+            requestCode,
+            permissions,
+            grantResults,
+            onPermissionGranted = {
+                // Permission granted, now check exact alarm permission
+                if (notificationPermissionHelper.hasExactAlarmPermission()) {
+                    binding.switchReminder.isChecked = true
+                    settingsViewModel.updateReminderEnabled(true)
+                    Toast.makeText(context, "提醒功能已开启", Toast.LENGTH_SHORT).show()
+                } else {
+                    notificationPermissionHelper.requestExactAlarmPermission()
+                }
+            },
+            onPermissionDenied = {
+                Toast.makeText(context, "需要通知权限才能开启提醒功能", Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 
     override fun onDestroyView() {

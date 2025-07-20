@@ -54,6 +54,9 @@ public final class FragmentCalendarBinding implements ViewBinding {
   public final TextView textSelectedDate;
 
   @NonNull
+  public final TextView textStatsTitle;
+
+  @NonNull
   public final TextView textTotalDays;
 
   private FragmentCalendarBinding(@NonNull CoordinatorLayout rootView,
@@ -62,7 +65,7 @@ public final class FragmentCalendarBinding implements ViewBinding {
       @NonNull ImageView iconExpand, @NonNull LinearLayout peekContent,
       @NonNull RecyclerView recyclerViewDayDetail, @NonNull TextView textCompletedDays,
       @NonNull TextView textCompletionRate, @NonNull TextView textSelectedDate,
-      @NonNull TextView textTotalDays) {
+      @NonNull TextView textStatsTitle, @NonNull TextView textTotalDays) {
     this.rootView = rootView;
     this.bottomSheet = bottomSheet;
     this.calendarView = calendarView;
@@ -74,6 +77,7 @@ public final class FragmentCalendarBinding implements ViewBinding {
     this.textCompletedDays = textCompletedDays;
     this.textCompletionRate = textCompletionRate;
     this.textSelectedDate = textSelectedDate;
+    this.textStatsTitle = textStatsTitle;
     this.textTotalDays = textTotalDays;
   }
 
@@ -164,6 +168,12 @@ public final class FragmentCalendarBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.text_stats_title;
+      TextView textStatsTitle = ViewBindings.findChildViewById(rootView, id);
+      if (textStatsTitle == null) {
+        break missingId;
+      }
+
       id = R.id.text_total_days;
       TextView textTotalDays = ViewBindings.findChildViewById(rootView, id);
       if (textTotalDays == null) {
@@ -172,7 +182,7 @@ public final class FragmentCalendarBinding implements ViewBinding {
 
       return new FragmentCalendarBinding((CoordinatorLayout) rootView, bottomSheet, calendarView,
           emptyState, expandedContent, iconExpand, peekContent, recyclerViewDayDetail,
-          textCompletedDays, textCompletionRate, textSelectedDate, textTotalDays);
+          textCompletedDays, textCompletionRate, textSelectedDate, textStatsTitle, textTotalDays);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

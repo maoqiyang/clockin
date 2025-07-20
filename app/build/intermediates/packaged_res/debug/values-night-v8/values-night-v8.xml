@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="accent_color">@color/accent_color_dark</color>
+    <color name="background_light">@color/background_dark</color>
+    <color name="calendar_complete">@color/calendar_complete_dark</color>
+    <color name="calendar_incomplete">@color/calendar_incomplete_dark</color>
+    <color name="calendar_partial">@color/calendar_partial_dark</color>
+    <color name="calendar_today">@color/calendar_today_dark</color>
+    <color name="card_background">@color/card_background_dark</color>
+    <color name="divider_color">@color/divider_color_dark</color>
+    <color name="primary_color">@color/primary_color_dark</color>
+    <color name="primary_dark">@color/primary_dark_dark</color>
+    <color name="surface_light">@color/surface_dark</color>
+    <color name="surface_variant_light">@color/surface_variant_dark</color>
+    <color name="text_hint">@color/text_hint_dark</color>
+    <color name="text_primary">@color/text_primary_dark</color>
+    <color name="text_secondary">@color/text_secondary_dark</color>
+    <style name="HabitCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="android:background">@color/card_background</item>
+        <item name="cardBackgroundColor">@color/card_background</item>
+    </style>
+    <style name="HabitCheckBox">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:padding">12dp</item>
+    </style>
+    <style name="SubtitleText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
     <style name="Theme.HabitTracker" parent="Theme.Material3.DayNight">
         
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
         
         <item name="colorSecondary">@color/accent_color</item>
         <item name="colorSecondaryVariant">@color/accent_color</item>
@@ -12,5 +45,28 @@
         
         <item name="android:statusBarColor" ns1:targetApi="l">?attr/colorPrimaryVariant</item>
         
+        <item name="android:windowBackground">@color/background_light</item>
+        <item name="colorSurface">@color/surface_light</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:colorBackground">@color/background_light</item>
+        
+        <item name="android:navigationBarColor">@color/background_light</item>
+        <item name="android:windowLightNavigationBar" ns1:targetApi="o">false</item>
+        <item name="android:windowLightStatusBar" ns1:targetApi="m">false</item>
+    </style>
+    <style name="Theme.HabitTracker.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.HabitTracker.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.HabitTracker.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark"/>
+    <style name="Theme.HabitTracker.Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="TitleText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

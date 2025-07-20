@@ -63,32 +63,54 @@ class CalendarAdapter(
                 binding.textDay.alpha = 1.0f
                 binding.root.visibility = android.view.View.VISIBLE
 
-                // 重置背景色
+                // 重置背景色和文字颜色
                 binding.root.setBackgroundColor(Color.TRANSPARENT)
+                binding.textDay.setTextColor(
+                    ContextCompat.getColor(binding.root.context, R.color.text_primary)
+                )
 
-                // Check if this day should be decorated
+                // Check if this day should be decorated (completion status)
                 val decorator = decorators.find { it.shouldDecorate(day) }
                 if (decorator != null) {
                     binding.root.setBackgroundColor(decorator.getBackgroundColor())
                 }
 
-                // Highlight selected date
-                if (selectedDate?.let { it.year == day.year && it.month == day.month && it.day == day.day } == true) {
-                    binding.root.setBackgroundColor(
-                        ContextCompat.getColor(binding.root.context, R.color.calendar_today)
-                    )
-                }
-
-                // Check if it's today
+                // Check if it's today and if it's selected
                 val today = CalendarDay.today()
-                if (day.year == today.year && day.month == today.month && day.day == today.day) {
-                    binding.textDay.setTextColor(
-                        ContextCompat.getColor(binding.root.context, R.color.calendar_today)
-                    )
-                } else {
-                    binding.textDay.setTextColor(
-                        ContextCompat.getColor(binding.root.context, R.color.text_primary)
-                    )
+                val isToday = day.year == today.year && day.month == today.month && day.day == today.day
+                val isSelected = selectedDate?.let { it.year == day.year && it.month == day.month && it.day == day.day } == true
+
+                when {
+                    isSelected && isToday -> {
+                        // Today and selected: Use a border/outline style to show selection while keeping decorator background
+                        binding.root.setBackgroundResource(R.drawable.calendar_today_selected_background)
+                        binding.textDay.setTextColor(
+                            ContextCompat.getColor(binding.root.context, R.color.white)
+                        )
+                    }
+                    isSelected -> {
+                        // Selected but not today: Blue background with white text
+                        binding.root.setBackgroundColor(
+                            ContextCompat.getColor(binding.root.context, R.color.calendar_today)
+                        )
+                        binding.textDay.setTextColor(
+                            ContextCompat.getColor(binding.root.context, R.color.white)
+                        )
+                    }
+                    isToday -> {
+                        // Today but not selected: Keep decorator background, use blue text
+                        binding.textDay.setTextColor(
+                            ContextCompat.getColor(binding.root.context, R.color.calendar_today)
+                        )
+                        binding.textDay.setTypeface(null, android.graphics.Typeface.BOLD)
+                    }
+                    else -> {
+                        // Normal day: Use default text color
+                        binding.textDay.setTextColor(
+                            ContextCompat.getColor(binding.root.context, R.color.text_primary)
+                        )
+                        binding.textDay.setTypeface(null, android.graphics.Typeface.NORMAL)
+                    }
                 }
 
                 binding.root.setOnClickListener {

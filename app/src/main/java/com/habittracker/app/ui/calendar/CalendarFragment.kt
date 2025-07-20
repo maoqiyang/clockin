@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -143,9 +144,29 @@ class CalendarFragment : Fragment() {
     }
 
     private fun updateStatsDisplay(stats: CalendarViewModel.MonthlyStats) {
-        binding.textCompletionRate.text = getString(R.string.completion_rate, stats.completionRate)
-        binding.textTotalDays.text = getString(R.string.total_days, stats.totalDays)
-        binding.textCompletedDays.text = getString(R.string.completed_days, stats.completedDays)
+        if (stats.isDaily) {
+            // Display daily statistics for selected date
+            binding.textCompletionRate.text = "完成率: ${stats.completionRate}%"
+            binding.textTotalDays.text = "总习惯: ${stats.totalHabits}个"
+            binding.textCompletedDays.text = "已完成: ${stats.completedHabits}个"
+
+            // Update the stats card title to reflect daily stats
+            updateStatsTitle("当日统计")
+        } else {
+            // Display monthly statistics (fallback)
+            binding.textCompletionRate.text = getString(R.string.completion_rate, stats.completionRate)
+            binding.textTotalDays.text = getString(R.string.total_days, stats.totalHabits)
+            binding.textCompletedDays.text = getString(R.string.completed_days, stats.completedHabits)
+
+            // Update the stats card title to reflect monthly stats
+            updateStatsTitle("本月统计")
+        }
+    }
+
+    private fun updateStatsTitle(title: String) {
+        // Find the stats title TextView and update it
+        val statsTitle = binding.root.findViewById<TextView>(R.id.text_stats_title)
+        statsTitle?.text = title
     }
 
     private fun updateSelectedDateDisplay(date: CalendarDay?) {

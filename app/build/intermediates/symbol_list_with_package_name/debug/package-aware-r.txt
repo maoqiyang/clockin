@@ -1391,10 +1391,12 @@ color abc_tint_seek_thumb
 color abc_tint_spinner
 color abc_tint_switch_track
 color accent_color
+color accent_color_dark
 color accent_material_dark
 color accent_material_light
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
+color background_dark
 color background_floating_material_dark
 color background_floating_material_light
 color background_light
@@ -1410,12 +1412,17 @@ color bright_foreground_material_light
 color button_material_dark
 color button_material_light
 color calendar_complete
+color calendar_complete_dark
 color calendar_incomplete
+color calendar_incomplete_dark
 color calendar_partial
+color calendar_partial_dark
 color calendar_today
+color calendar_today_dark
 color call_notification_answer_color
 color call_notification_decline_color
 color card_background
+color card_background_dark
 color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
@@ -1463,6 +1470,7 @@ color dim_foreground_disabled_material_light
 color dim_foreground_material_dark
 color dim_foreground_material_light
 color divider_color
+color divider_color_dark
 color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
@@ -2096,7 +2104,9 @@ color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
 color primary_color
+color primary_color_dark
 color primary_dark
+color primary_dark_dark
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -2114,6 +2124,10 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color surface_dark
+color surface_light
+color surface_variant_dark
+color surface_variant_light
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -2123,8 +2137,11 @@ color switch_thumb_normal_material_light
 color teal_200
 color teal_700
 color text_hint
+color text_hint_dark
 color text_primary
+color text_primary_dark
 color text_secondary
+color text_secondary_dark
 color tooltip_background_dark
 color tooltip_background_light
 color white
@@ -3024,6 +3041,7 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable calendar_today_selected_background
 drawable design_fab_background
 drawable design_ic_visibility
 drawable design_ic_visibility_off
@@ -3654,6 +3672,7 @@ id text_input_start_icon
 id text_quote
 id text_reminder_time
 id text_selected_date
+id text_stats_title
 id text_status
 id text_today
 id text_total_days

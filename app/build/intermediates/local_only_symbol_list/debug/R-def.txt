@@ -1,24 +1,41 @@
 R_DEF: Internal format may change without notice
 local
 color accent_color
+color accent_color_dark
+color background_dark
 color background_light
 color black
 color calendar_complete
+color calendar_complete_dark
 color calendar_incomplete
+color calendar_incomplete_dark
 color calendar_partial
+color calendar_partial_dark
 color calendar_today
+color calendar_today_dark
 color card_background
+color card_background_dark
 color divider_color
+color divider_color_dark
 color primary_color
+color primary_color_dark
 color primary_dark
+color primary_dark_dark
 color purple_200
 color purple_500
 color purple_700
+color surface_dark
+color surface_light
+color surface_variant_dark
+color surface_variant_light
 color teal_200
 color teal_700
 color text_hint
+color text_hint_dark
 color text_primary
+color text_primary_dark
 color text_secondary
+color text_secondary_dark
 color white
 dimen activity_horizontal_margin
 dimen activity_vertical_margin
@@ -31,6 +48,7 @@ dimen nav_header_vertical_spacing
 dimen text_margin
 drawable bottom_sheet_background
 drawable bottom_sheet_handle
+drawable calendar_today_selected_background
 drawable ic_add
 drawable ic_calendar
 drawable ic_cancel
@@ -100,6 +118,7 @@ id text_habit_name
 id text_quote
 id text_reminder_time
 id text_selected_date
+id text_stats_title
 id text_status
 id text_today
 id text_total_days

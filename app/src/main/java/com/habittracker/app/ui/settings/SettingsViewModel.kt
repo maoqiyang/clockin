@@ -9,15 +9,17 @@ import com.habittracker.app.data.database.HabitDatabase
 import com.habittracker.app.data.model.Habit
 import com.habittracker.app.data.model.UserSettings
 import com.habittracker.app.data.repository.HabitRepository
+import com.habittracker.app.notification.NotificationManager
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: HabitRepository
-    
+    private val notificationManager: NotificationManager
+
     val habits: LiveData<List<Habit>>
     val userSettings: LiveData<UserSettings?>
-    
+
     private val _operationResult = MutableLiveData<OperationResult>()
     val operationResult: LiveData<OperationResult> = _operationResult
 
@@ -29,7 +31,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             database.motivationContentDao(),
             database.userSettingsDao()
         )
-        
+
+        notificationManager = NotificationManager(application)
+
         habits = repository.getAllActiveHabits()
         userSettings = repository.getUserSettings()
     }
@@ -96,6 +100,18 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             try {
                 repository.updateReminderTime(time)
+
+                // Update notification schedule if reminders are enabled
+                val settings = repository.getUserSettingsSync()
+                if (settings?.isReminderEnabled == true) {
+                    val timeParts = time.split(":")
+                    if (timeParts.size == 2) {
+                        val hour = timeParts[0].toIntOrNull() ?: 20
+                        val minute = timeParts[1].toIntOrNull() ?: 0
+                        notificationManager.scheduleReminder(hour, minute)
+                    }
+                }
+
                 _operationResult.value = OperationResult.SUCCESS
             } catch (e: Exception) {
                 _operationResult.value = OperationResult.ERROR
@@ -107,10 +123,40 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             try {
                 repository.updateReminderEnabled(enabled)
+
+                if (enabled) {
+                    // Schedule notification with current time
+                    val settings = repository.getUserSettingsSync()
+                    settings?.let {
+                        val timeParts = it.reminderTime.split(":")
+                        if (timeParts.size == 2) {
+                            val hour = timeParts[0].toIntOrNull() ?: 20
+                            val minute = timeParts[1].toIntOrNull() ?: 0
+                            notificationManager.scheduleReminder(hour, minute)
+                        }
+                    }
+                } else {
+                    // Cancel notification
+                    notificationManager.cancelReminder()
+                }
             } catch (e: Exception) {
                 // Handle error silently for switch
             }
         }
+    }
+
+    /**
+     * Check if notifications are enabled
+     */
+    fun areNotificationsEnabled(): Boolean {
+        return notificationManager.areNotificationsEnabled()
+    }
+
+    /**
+     * Check if exact alarm permission is granted
+     */
+    fun canScheduleExactAlarms(): Boolean {
+        return notificationManager.canScheduleExactAlarms()
     }
 
     enum class OperationResult {

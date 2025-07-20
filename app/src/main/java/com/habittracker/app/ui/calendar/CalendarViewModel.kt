@@ -44,26 +44,32 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             val calendar = Calendar.getInstance()
             calendar.set(date.year, date.month - 1, 1)
-            
+
             // Get first and last day of month
             val firstDay = calendar.time
             calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
             val lastDay = calendar.time
-            
+
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val startDate = dateFormat.format(firstDay)
             val endDate = dateFormat.format(lastDay)
-            
+
             // Load records for the month
             val records = repository.getRecordsBetweenDates(startDate, endDate)
             val habits = repository.getAllActiveHabitsSync()
-            
-            // Calculate stats and decorators
-            val stats = calculateMonthlyStats(records, habits, firstDay, lastDay)
+
+            // Calculate decorators for the calendar
             val decorators = createCalendarDecorators(records, habits)
-            
-            _monthlyStats.value = stats
             _calendarDecorators.value = decorators
+
+            // If no date is selected yet, show daily stats for today
+            if (_selectedDate.value == null) {
+                val today = CalendarDay.today()
+                val todayDateString = String.format("%04d-%02d-%02d", today.year, today.month, today.day)
+                val todayRecords = repository.getRecordsByDateSync(todayDateString)
+                val dailyStats = calculateDailyStats(todayRecords, habits, today)
+                _monthlyStats.value = dailyStats
+            }
         }
     }
 
@@ -73,7 +79,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             val dateString = String.format("%04d-%02d-%02d", date.year, date.month, date.day)
             val records = repository.getRecordsByDateSync(dateString)
             val habits = repository.getAllActiveHabitsSync()
-            
+
             val details = habits.map { habit ->
                 val record = records.find { it.habitId == habit.id }
                 DayDetailItem(
@@ -82,8 +88,12 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
                     description = habit.description
                 )
             }
-            
+
+            // Calculate daily stats for the selected date
+            val dailyStats = calculateDailyStats(records, habits, date)
+
             _selectedDayDetails.value = details
+            _monthlyStats.value = dailyStats
         }
     }
 
@@ -119,9 +129,30 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
         val completionRate = if (totalDays > 0) (completedDays * 100) / totalDays else 0
         
         return MonthlyStats(
-            totalDays = totalDays,
-            completedDays = completedDays,
-            completionRate = completionRate
+            totalHabits = totalDays, // Keep for backward compatibility, but this represents total days
+            completedHabits = completedDays, // Keep for backward compatibility, but this represents completed days
+            completionRate = completionRate,
+            isDaily = false
+        )
+    }
+
+    private fun calculateDailyStats(
+        records: List<HabitRecord>,
+        habits: List<Habit>,
+        date: CalendarDay
+    ): MonthlyStats {
+        val totalHabits = habits.size
+        val completedHabits = records.count { it.isCompleted }
+        val completionRate = if (totalHabits > 0) (completedHabits * 100) / totalHabits else 0
+
+        val dateString = String.format("%04d年%02d月%02d日", date.year, date.month, date.day)
+
+        return MonthlyStats(
+            totalHabits = totalHabits,
+            completedHabits = completedHabits,
+            completionRate = completionRate,
+            isDaily = true,
+            selectedDate = dateString
         )
     }
 
@@ -173,9 +204,11 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
     }
 
     data class MonthlyStats(
-        val totalDays: Int,
-        val completedDays: Int,
-        val completionRate: Int
+        val totalHabits: Int,
+        val completedHabits: Int,
+        val completionRate: Int,
+        val isDaily: Boolean = false,
+        val selectedDate: String = ""
     )
     
     data class DayDetailItem(

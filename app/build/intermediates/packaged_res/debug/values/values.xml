@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="http://schemas.android.com/tools">
     <color name="accent_color">#FFFF9800</color>
+    <color name="accent_color_dark">#FFFFB74D</color>
+    <color name="background_dark">#FF121212</color>
     <color name="background_light">#FFF5F5F5</color>
     <color name="black">#FF000000</color>
     <color name="calendar_complete">#FF4CAF50</color>
+    <color name="calendar_complete_dark">#FF66BB6A</color>
     <color name="calendar_incomplete">#FFE0E0E0</color>
+    <color name="calendar_incomplete_dark">#FF424242</color>
     <color name="calendar_partial">#FFFFC107</color>
+    <color name="calendar_partial_dark">#FFFFD54F</color>
     <color name="calendar_today">#FF2196F3</color>
+    <color name="calendar_today_dark">#FF64B5F6</color>
     <color name="card_background">#FFFFFFFF</color>
+    <color name="card_background_dark">#FF1E1E1E</color>
     <color name="divider_color">#FFE0E0E0</color>
+    <color name="divider_color_dark">#FF424242</color>
     <color name="primary_color">#FF4CAF50</color>
+    <color name="primary_color_dark">#FF66BB6A</color>
     <color name="primary_dark">#FF388E3C</color>
+    <color name="primary_dark_dark">#FF4CAF50</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
+    <color name="surface_dark">#FF1E1E1E</color>
+    <color name="surface_light">#FFFFFFFF</color>
+    <color name="surface_variant_dark">#FF2C2C2C</color>
+    <color name="surface_variant_light">#FFF5F5F5</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="text_hint">#FFBDBDBD</color>
+    <color name="text_hint_dark">#FF757575</color>
     <color name="text_primary">#FF212121</color>
+    <color name="text_primary_dark">#FFFFFFFF</color>
     <color name="text_secondary">#FF757575</color>
+    <color name="text_secondary_dark">#FFB0B0B0</color>
     <color name="white">#FFFFFFFF</color>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -82,6 +99,7 @@
         <item name="cardCornerRadius">8dp</item>
         <item name="cardElevation">4dp</item>
         <item name="android:background">@color/card_background</item>
+        <item name="cardBackgroundColor">@color/card_background</item>
     </style>
     <style name="HabitCheckBox">
         <item name="android:textSize">16sp</item>
@@ -105,6 +123,13 @@
         <item name="android:statusBarColor" ns1:targetApi="l">?attr/colorPrimaryVariant</item>
         
         <item name="android:windowBackground">@color/background_light</item>
+        <item name="colorSurface">@color/surface_light</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:colorBackground">@color/background_light</item>
+        
+        <item name="android:navigationBarColor">@color/background_light</item>
+        <item name="android:windowLightNavigationBar" ns1:targetApi="o">true</item>
+        <item name="android:windowLightStatusBar" ns1:targetApi="m">true</item>
     </style>
     <style name="Theme.HabitTracker.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="Theme.HabitTracker.NoActionBar">
